@@ -3,10 +3,14 @@
 **Research Questions**
 
 1. LSTM Planning for GNNs - Investigate accounting for path dependence using lstm gnn predictor. This could excel at things where swarms have to complete sequnced tasks? I.E. A set of robots has to push a button in a maze in order to get to/map another section. Having all robots swarm to the button is not as optimal as leaving most robots by the door, and having one robot go to the button. This is a very different type of co-ordination task than formation control; the policy for each robot has to be co-ordinated, but very dissimilar. I'm not sure how an LSTM fits in, but the control system would need to be able to do coalition formation, and long term planning. My guess is that decenteralization is bad for long term planning, and hierarchical systems could be better?
-2. Object-Actor GNN for multi-robot-heterogenous manipulation. Model objects and actors as nodes in a GNN, with action primitives for actors, and none for objects. Heterogeneus in the sense of differeing robot specializations like how in construction environments specialized robots could be very useful, and planning would need to account for that. Most GNN MRS use GNNs for communication improvements.
+2. Object-Actor GNN for multi-robot-heterogenous manipulation. Model objects and actors as nodes in a GNN, with action primitives for actors, and none for objects. Heterogeneus in the sense of differeing robot specializations like how in construction environments specialized robots could be very useful, and planning would need to account for that. Robots with better vision could optimize communication with smaller action-bots to get them to move stuff.
 3. Layered GNNs for Heirarchical Robot Control. Have more powerful robots hold a GNN for controlling the smaller robots, and use a GNN to synchronize the larger robots facing limited communication. This seems like a pretty straightforeward extension from some of these papers, and I'm not sure it's academically interesting, though distilling it to the core ideas could be useful. 
+4. Use GNNs to train chirping robots to efficiently communicate (This might be outside my domain of specifically heterogeneous gnn stuff)
+5. Multi-Robot Co-Localization - This is a very natural seeming area for graph nets to improve things, as GNNs can optimize communication and decision-making for better localization. A feedback loop of go out and search these points, re-survey some points, big robot goes to check different spots, could very well improve using GNNs spatial modeling and actor/action modeling. The graphs could be similar to [3], but instead of coverage focus on localization, and locations would be less literal.
 ---
 **Summary of My Thoughts**
+
+Simulation is remarkably common as the only verification method for many of these algorithms. GNNs are frequently used for communication optimization, though they have other applications too.
 
 ---
 *Included Papers:*
@@ -21,6 +25,7 @@
 8. [Neural-Swarm2: Planning and Control of Heterogeneous Multirotor Swarms Using Learned Interactions](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9508420)
 9. [Learning scheduling policies for multi-robot coordination with graph attention networks](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9116987)
 10. [Decentralization of multiagent policies by learning what to communicate](https://arxiv.org/pdf/1901.08490.pdf) (Perimeter Defence)
+11. [DiNNO: Distributed Neural Network Optimization for Multi-Robot Collaborative Learning](https://ieeexplore.ieee.org/abstract/document/9681319)
 
 ---
 *Notes on Paper 1:*
@@ -65,6 +70,14 @@ Uses Graph Convolutional Network (GCN, How is this different from a GNN? Presuma
 This approach seems to make a lot of sense for formation control, but what about long term planning? 
 
 ---
+*Notes on Paper 5:*
+
+**Neurosymbolic Transformers for Multi-Agent Communication**
+
+Focuses on minimizing communication degree in graph of agents. They train a transformer to select agent actions, then have a policy to form that into a communication graph.
+
+---
+
 *Notes on Paper 8:*
 
 **Neural-Swarm2: Planning and Control of Heterogeneous Multirotor Swarms Using Learned Interactions**
@@ -72,5 +85,21 @@ This approach seems to make a lot of sense for formation control, but what about
 - This is specific to multi-rotor dynamics, using a physics model + deep nets (MLP?) (Trained in a permutation invariant manner.)
 
 So this paper helps multi-rotors fly specifically in close proximity, overcoming the specific challenge of complex aerodynamic forces.
+
+---
+
+*Notes on Paper 11*
+
+**DiNNO: Distributed Neural Network Optimization for Multi-Robot Collaborative Learning**
+
+*DiNNO allows robots to cooperatively optimize local copies of a neural network model without explicitly sharing data.*
+
+---
+
+*Notes on Paper 12*
+
+**Large-Scale Multi-Agent Deep FBSDEs**
+
+This one is very theoretical and focuses on game-strategy optimization for games with stochastic decision making. They claim to be very good at finding the strategy where no players gain an advantage over others by modifying their strategy. I think this is more of a typically pure ai paper rather than a robotics one, but the game/strategy research I think does have a place in robotics that almost none of the other papers talk about. 
 
 ---
